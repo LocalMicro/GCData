@@ -1,6 +1,7 @@
 <h1>Code Book </br>
 for Coursera class Getting and Cleaning Data - September 2015</h1>
-Instructor: Jeffrey Leek (http://jtleek.com/)
+Instructor: Jeffrey Leek </br>
+<a href="http://jtleek.com/" target=_"blank">JTLeek.com</a>
 
 <h2>Introduction</h2>
 <p>This code book "describes the variables, the data, and any transformations or work"
@@ -138,10 +139,10 @@ These tables are subjectTrain, subjectTest, activityTrain, activityTest, measure
 > concatMeasure <- cbind(allSubjectActiv, concatMeasure)<br> 
 </ul>
 <p>END OF STEP 1: View of concatMeasure (Row 5037 of 10,299 rows, left side) showing Subject, ActivityIndex, and some measurements</br>
-<a href="https://cloud.githubusercontent.com/assets/4791481/10124401/5f4555ba-6522-11e5-99f0-be3074de7b58.PNG" target=_"blank">End of Step 1, concatMeasure </a>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124401/5f4555ba-6522-11e5-99f0-be3074de7b58.PNG" target=_"blank">End of Step 1, concatMeasure, left </a>
 </p>
-<p>END OF STEP 1:View of right side of concatMeasure (Row 5037 of 10,299 rows, left side) showing end column measurements</br>
-<a href="https://cloud.githubusercontent.com/assets/4791481/10124403/65a09c3a-6522-11e5-9b9c-57d7f6e4832f.PNG" target=_"blank">End of Step 1, concatMeasure </a>
+<p>END OF STEP 1:View of right side of concatMeasure (Row 5037 of 10,299 rows, right side) showing end column measurements</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124403/65a09c3a-6522-11e5-9b9c-57d7f6e4832f.PNG" target=_"blank">End of Step 1, concatMeasure, right</a>
 </p>
     
 <h3>Step 2 - Extract only mean and standard deviation for each measurement</h3>
@@ -150,16 +151,15 @@ These tables are subjectTrain, subjectTest, activityTrain, activityTest, measure
 <p>
 STEP 2a: Screenshot of measureFeaturesMeanStd showing 66 variables containing mean or std</br>
 <a href="https://cloud.githubusercontent.com/assets/4791481/10124405/698d2610-6522-11e5-99f7-0711eabcceb1.PNG" target=_"blank">Step 2, measureFeaturesMeanStd </a>
-
 </p>
 
 - Use union() to add the subject and activityIndex columns to measureFeaturesMeanStd</br>
 <ul>> measureFeaturesMeanStd <- union(c("subject", "activityIndex"), measureFeaturesMeanStd)</ul>
 - Make a subset according to measureFeaturesMeanStd</br>
 <ul>> concatMeasure <- subset(concatMeasure, select=measureFeaturesMeanStd)</ul>
-<p>STEP 2b: View of concatMeasure after subsetting mean and std</br>
-<a href="https://cloud.githubusercontent.com/assets/4791481/10124406/6d4a2dac-6522-11e5-8e2c-73f93bbd50d7.PNG" target=_"blank">Step 2b, concatMeasure with only mean and std variables </a>
-
+<p>STEP 2b: View of concatMeasure after subsetting mean and std, now 66 data columns and 10,299 rows</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124406/6d4a2dac-6522-11e5-8e2c-73f93bbd50d7.PNG" target=_"blank">
+Step 2b, concatMeasure with only mean and std variables, 66 data columns + Subject + ActivityIndex </a>
 </p>
 
 <h3>Step 3 - Name the activities in the dataset in a descriptive way (use text)</h3>
@@ -175,8 +175,9 @@ STEP 2a: Screenshot of measureFeaturesMeanStd showing 66 variables containing me
   <ul>> AggregOut <- aggregate(. ~ subject - activityName, data = concatMeasure, mean) <br>
   > concatMeasure <- tbl_df(arrange(AggregOut, subject, activityName))</ul>
   
-<p>ARRANGE BY SUBJECT: View of concatMeasure after adding Activity names</br>
-<a href="https://cloud.githubusercontent.com/assets/4791481/10124410/7d7091f8-6522-11e5-9eab-909e195d72e7.PNG" target=_"blank">Step 3a, concatMeasure ordered by Subject, then activityName </a>
+<p>ARRANGE BY SUBJECT: View of concatMeasure after arranging Subject to Column 1</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124410/7d7091f8-6522-11e5-9eab-909e195d72e7.PNG" target=_"blank">
+Step 3b: concatMeasure ordered by Subject, then activityName </a>
 </p>
 
 
@@ -209,8 +210,10 @@ STEP 2a: Screenshot of measureFeaturesMeanStd showing 66 variables containing me
 <h3>Step 5 - Create a second tidy data set with the average of each variable for each activity and each subject </h3>
 - Average (mean) was calculated above as part of Step 3. Write text file to be uploaded to Coursera. </br>
 <p>REDUCED DATASET: View of concatMeasure after calculating mean of the subject/activity data</br>
-<a href="https://cloud.githubusercontent.com/assets/4791481/10124408/7735e388-6522-11e5-83d4-e24c4b9010aa.PNG" target=_"blank">concatMeasure reduced from 10,299 rows to 180 rows (30 subjects x 6 activities per subject)</a>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124408/7735e388-6522-11e5-83d4-e24c4b9010aa.PNG" target=_"blank">concatMeasure reduced from 10,299 rows to 180 rows (30 subjects x 6 activities per subject) amd 69 columns (66 data measurements plus Subject, Activity Name, ActivityIndex)</a>
 </p>
+
+
   <ul>> write.table(concatMeasure, "TidyData.txt", row.name=FALSE)</ul>
 
 
