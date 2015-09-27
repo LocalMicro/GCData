@@ -1,6 +1,6 @@
-GitHub Repo: GCData in LocalMicro
-
+README file 
 Coursera Getting and Cleaning Data class September 2015
+GitHub Repo: GCData in LocalMicro
 
 The course project is to make a tidy data (sub)set from the 
 Human Activity Recognition Using Smartphones Dataset.
@@ -13,7 +13,7 @@ The requirements for the Coursera class project are to:
   -- a CODEBOOK.md "that describes the variables, data, and any transformations
      or work that you performed to clean up the data." 
      
-The instructions for the R code have 5 points:
+The instructions for the R code have 5 steps:
 1. Merge the HAR training and test datasets into one dataset
 2. Make a subset of only Mean and Standard Deviation measurements
 3. Name the activities performed by each volunteer using text (walking, sitting, etc.) instead of numerals
@@ -23,7 +23,7 @@ The instructions for the R code have 5 points:
 The URL for the HAR data is:
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
 
-Informatin about the HAR dataset is here:
+Information about the HAR dataset is here:
 https://sites.google.com/site/harsmartlab/
 
 The unzipped files include a 'train' and 'test' folder plus these files:
@@ -32,10 +32,10 @@ The unzipped files include a 'train' and 'test' folder plus these files:
 - features_info.txt
 - README.txt
 
-Inside the 'train' folder and the 'test' folder are subfolders 'inertial signals.' 
-These is not used in making the tidy dataset.
+Inside each of the 'train' and the 'test' folders are subfolders 'inertial signals.' 
+The inertial signals data is not used in making the tidy dataset.
 
-The 'train' folder has these files:
+Within the 'train' folder are these files:
 - subject_train.txt
 - X_train.txt
 - y_train.txt
@@ -45,7 +45,7 @@ Within the 'test' folder are these files:
 - X_test.txt
 - y_test.txt
 
-<strong>Units of measurement</strong>
+<strong>Units of Measurement</strong></br>
 Time variables are measured in seconds. Specifically, accelerometer and gyroscope time measurements are "sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz."
 
 The gravitational and body motion components are electrical signals and gravitational force is assumed to have "low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used."
@@ -55,8 +55,6 @@ The magnitude of the 3-dimensional signals (XYZ) "were calculated using the Eucl
 The 'time domain signals' (tAcc-XYZ and tGyro-XYZ) from the smartphones'accelerometers and gyroscopes were captured at a constant rate of 50 Hz and then filtered to remove noise. The accelerometer signals were filtered into separate body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ). Also, Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ) were calculated from the body linear acceleration and angular velocity.
 
 See the HAR Readme file (below) for more details.
-
------------------------
 
 The Readme file from the HAR data is quoted below. This dataset is a collection of
 observations of human subjects wearing smartphones that have accelerometers and gyroscopes.
@@ -134,7 +132,6 @@ For more information about this dataset contact: activityrecognition@smartlab.ws
 License:
 ========
 Use of this dataset in publications must be acknowledged by referencing the following publication [1] 
-
 [1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
 
 This dataset is distributed AS-IS and no responsibility implied or explicit can be addressed to the authors or their institutions for its use or misuse. Any commercial use is prohibited.
