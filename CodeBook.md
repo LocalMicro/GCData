@@ -11,13 +11,13 @@ Smartlab - Non Linear Complex Systems Laboratory</br>
 DITEN - Università degli Studi di Genova.</br>
 Via Opera Pia 11A, I-16145, Genoa, Italy.</br>
 activityrecognition@smartlab.ws</br>
-<a href="http://www.smartlab.ws"</a>
+<a href="http://www.smartlab.ws" target=_"blank">smartlab.ws</a>
 
 <p>The HAR dataset can be downloaded at:</p>
 <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"> https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a>
 
 <p>Information about the HAR dataset is here:</p>
-<a href="https://sites.google.com/site/harsmartlab/"> https://sites.google.com/site/harsmartlab/</a>
+<a href="https://sites.google.com/site/harsmartlab/"target=_"blank"> https://sites.google.com/site/harsmartlab/</a>
 
 <p>This dataset was "built from the recordings of 30 subjects performing basic activities and postural transitions while carrying a waist-mounted smartphone with embedded inertial sensors." <em>(from the Abstract)</p></em>
 
@@ -137,26 +137,55 @@ These tables are subjectTrain, subjectTest, activityTrain, activityTest, measure
     <ul>> allSubjectActiv <- cbind(concatSubject, concatActivity)<br>
 > concatMeasure <- cbind(allSubjectActiv, concatMeasure)<br> 
 </ul>
+<p>END OF STEP 1: View of concatMeasure (Row 5037 of 10,299 rows, left side) showing Subject, ActivityIndex, and some measurements</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124401/5f4555ba-6522-11e5-99f0-be3074de7b58.PNG" target=_"blank">End of Step 1, concatMeasure </a>
+</p>
+<p>END OF STEP 1:View of right side of concatMeasure (Row 5037 of 10,299 rows, left side) showing end column measurements</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124403/65a09c3a-6522-11e5-9b9c-57d7f6e4832f.PNG" target=_"blank">End of Step 1, concatMeasure </a>
+</p>
     
 <h3>Step 2 - Extract only mean and standard deviation for each measurement</h3>
 - Use grep() to fnd all mean and standard deviation data</br> 
   <ul>> measureFeaturesMeanStd <- grep("mean\\(\\)|std\\(\\)",measureFeatures$featureName, ignore.case=TRUE, value=TRUE)</ul>
-  
+<p>
+STEP 2a: Screenshot of measureFeaturesMeanStd showing 66 variables containing mean or std</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124405/698d2610-6522-11e5-99f7-0711eabcceb1.PNG" target=_"blank">Step 2, measureFeaturesMeanStd </a>
+
+</p>
+
 - Use union() to add the subject and activityIndex columns to measureFeaturesMeanStd</br>
 <ul>> measureFeaturesMeanStd <- union(c("subject", "activityIndex"), measureFeaturesMeanStd)</ul>
 - Make a subset according to measureFeaturesMeanStd</br>
 <ul>> concatMeasure <- subset(concatMeasure, select=measureFeaturesMeanStd)</ul>
+<p>STEP 2b: View of concatMeasure after subsetting mean and std</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124406/6d4a2dac-6522-11e5-8e2c-73f93bbd50d7.PNG" target=_"blank">Step 2b, concatMeasure with only mean and std variables </a>
+
+</p>
 
 <h3>Step 3 - Name the activities in the dataset in a descriptive way (use text)</h3>
 - Add activityLabels to concatMeasure, sorting by the activityIndex. Make the activityName variable a character type. </br>
 <ul>> concatMeasure <- merge(activityLabels, concatMeasure, by="activityIndex", all.x=TRUE) <br>
 > concatMeasure$activityName <- as.character(concatMeasure$activityName)
 </ul>
+<p>STEP 3a: ADD ACTIVITY NAMES. View of concatMeasure after adding Activity names</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124407/7409cfe4-6522-11e5-8628-7a48f4200e86.PNG" target=_"blank">Step 3a, concatMeasure with Activity Names </a>
+</p>
+
 - Calculate the mean for each subject and activity (Step 5)</br>
   <ul>> AggregOut <- aggregate(. ~ subject - activityName, data = concatMeasure, mean) <br>
   > concatMeasure <- tbl_df(arrange(AggregOut, subject, activityName))</ul>
+  
+<p>ARRANGE BY SUBJECT: View of concatMeasure after adding Activity names</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124410/7d7091f8-6522-11e5-9eab-909e195d72e7.PNG" target=_"blank">Step 3a, concatMeasure ordered by Subject, then activityName </a>
+</p>
+
+
 
 <h3>Step 4 - Label the measurements with descriptive variable names </h3>
+- Use gsub() to remove non-alphanumeric chars </br>
+<ul>> names(concatMeasure)<-gsub("[^[:alnum:]]", "", names(concatMeasure))</br>
+</ul>
+
 - Use gsub() to change 't' to 'time' and 'f' to 'frequency' (when these letters occur at the beginning of the measurement label); </br>
 <ul>> names(concatMeasure) <- gsub("^t", "time", names(concatMeasure))</br>
 > names(concatMeasure) <- gsub("^f", "frequency", names(concatMeasure))
@@ -169,9 +198,19 @@ These tables are subjectTrain, subjectTest, activityTrain, activityTest, measure
 <ul>> names(concatMeasure) <- gsub("Acc", "Acceleration", names(concatMeasure))</br>
  etc.
  </ul>
-
+ 
+ <p>STEP 4: Edit variable names</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124907/99a230b2-6530-11e5-971b-3713f9319b05.PNG" target=_"blank">concatMeasure with edited variable names</a>
+</p>
+ <p>STEP 4: std (Standard Deviation) variable names changed to "StandDev"</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124908/9f6b0488-6530-11e5-975d-0ebe0f64be40.PNG" target=_"blank">concatMeasure showing StandDev variable names</a>
+</p>
+ 
 <h3>Step 5 - Create a second tidy data set with the average of each variable for each activity and each subject </h3>
 - Average (mean) was calculated above as part of Step 3. Write text file to be uploaded to Coursera. </br>
+<p>REDUCED DATASET: View of concatMeasure after calculating mean of the subject/activity data</br>
+<a href="https://cloud.githubusercontent.com/assets/4791481/10124408/7735e388-6522-11e5-83d4-e24c4b9010aa.PNG" target=_"blank">concatMeasure reduced from 10,299 rows to 180 rows (30 subjects x 6 activities per subject)</a>
+</p>
   <ul>> write.table(concatMeasure, "TidyData.txt", row.name=FALSE)</ul>
 
 
